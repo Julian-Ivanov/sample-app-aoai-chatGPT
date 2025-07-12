@@ -967,12 +967,14 @@ const Chat = () => {
               <h5
                 className={styles.citationPanelTitle}
                 tabIndex={0}
-                title={
-                  activeCitation.url && !activeCitation.url.includes('blob.core')
-                    ? activeCitation.url
-                    : activeCitation.title ?? ''
-                }
-                onClick={() => onViewSource(activeCitation)}>
+                title={activeCitation.filepath ? `https://solidsystemstorage.blob.core.windows.net/all-docs/${activeCitation.filepath.split('/').pop()}` : (activeCitation.title ?? '')}
+                onClick={() => {
+                  if (activeCitation.filepath) {
+                    const fileName = activeCitation.filepath.split('/').pop();
+                    const url = `https://solidsystemstorage.blob.core.windows.net/all-docs/${fileName}`;
+                    window.open(url, '_blank');
+                  }
+                }}>
                 {activeCitation.title}
               </h5>
               <div tabIndex={0}>
